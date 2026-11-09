@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mentiq Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column set like Mentiq's own product — newsprint paper, serif heads,
+   mono labels, hairline rules, and the highlighter used only where something matters. */
+:root {
+  --paper: #F3EFE6;
+  --card: #FCFAF5;
+  --ink: #12100D;
+  --ink-2: #46423B;
+  --muted: #7B7569;
+  --rule: #DDD6C7;
+  --rule-strong: #12100D;
+  --hl: #E4FF3C;
+  --hl-ink: #12100D;
+  --good: #17784A;
+  --good-bg: #E2F0E4;
+  --warn: #8F5300;
+  --warn-bg: #F8EBD3;
+  --bad: #A82D25;
+  --bad-bg: #F7E1DC;
+  --info: #1C4F8F;
+  --info-bg: #E4ECF6;
+
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --measure: 68ch;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #15130F;
+    --card: #1D1B17;
+    --ink: #F3EFE6;
+    --ink-2: #CFC8BA;
+    --muted: #9D968A;
+    --rule: #36322B;
+    --rule-strong: #CFC8BA;
+    --good: #6CCB97;
+    --good-bg: #17291F;
+    --warn: #E8A94F;
+    --warn-bg: #2E2312;
+    --bad: #F0857A;
+    --bad-bg: #331A17;
+    --info: #8DB5EA;
+    --info-bg: #17222F;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #15130F;
+  --card: #1D1B17;
+  --ink: #F3EFE6;
+  --ink-2: #CFC8BA;
+  --muted: #9D968A;
+  --rule: #36322B;
+  --rule-strong: #CFC8BA;
+  --good: #6CCB97;
+  --good-bg: #17291F;
+  --warn: #E8A94F;
+  --warn-bg: #2E2312;
+  --bad: #F0857A;
+  --bad-bg: #331A17;
+  --info: #8DB5EA;
+  --info-bg: #17222F;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 16px/1.65 var(--body);
+  -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 40px 96px; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+h1 { font-size: clamp(44px, 8vw, 76px); line-height: 1; font-variation-settings: "opsz" 144; }
+h2 { font-size: clamp(30px, 4.6vw, 40px); line-height: 1.08; font-variation-settings: "opsz" 120; }
+h3 { font-size: 22px; line-height: 1.2; font-variation-settings: "opsz" 48; }
+p { margin: 0; max-width: var(--measure); }
+em { font-style: italic; }
+a { color: inherit; text-decoration-color: var(--muted); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--ink); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+
+.kicker {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+}
+.hl {
+  color: var(--hl-ink);
+  padding: 0.02em 0.16em 0;
+  margin: 0 -0.06em;
+  border-radius: 0.14em 0.06em 0.12em 0.05em / 0.1em 0.14em 0.08em 0.12em;
+  background: linear-gradient(100deg, transparent 0.8%, var(--hl) 2.5%, var(--hl) 96.5%, transparent 99%);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* ───── Nameplate ───── */
+.dateline {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px;
+  border-bottom: 1px solid var(--rule); padding-bottom: 10px;
+}
+.nameplate { display: grid; gap: 18px; padding-block: 34px 26px; border-bottom: 3px double var(--rule-strong); }
+.dek { font-size: 19px; line-height: 1.55; color: var(--ink-2); }
+.for { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+.for b { color: var(--ink); font-weight: 500; }
+
+/* ───── Contents ───── */
+.toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 32px; padding-block: 22px; border-bottom: 1px solid var(--rule); }
+.toc a { display: grid; grid-template-columns: 28px 1fr; gap: 8px; padding: 7px 0; text-decoration: none; border-bottom: 1px dashed var(--rule); font-size: 15px; }
+.toc a span:first-child { font-family: var(--mono); font-size: 12px; color: var(--muted); padding-top: 3px; }
+.toc a:hover span:last-child { text-decoration: underline; }
+
+/* ───── Sections ───── */
+section { padding-top: 56px; display: grid; gap: 20px; }
+.sec-head { display: grid; gap: 10px; border-top: 1px solid var(--rule-strong); padding-top: 14px; }
+.lede { font-size: 17px; color: var(--ink-2); }
+
+/* Three audiences */
+.trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border: 1px solid var(--rule-strong); background: var(--card); }
+.trio > div { padding: 20px; display: grid; gap: 8px; align-content: start; }
+.trio > div + div { border-left: 1px solid var(--rule); }
+@media (max-width: 700px) { .trio > div + div { border-left: 0; border-top: 1px solid var(--rule); } }
+.trio p { font-size: 14.5px; color: var(--ink-2); }
+
+/* Journey: a real sequence, so it's numbered */
+.journey { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+.journey li { counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.journey li::before { content: counter(step, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--muted); padding-top: 4px; }
+.journey b { font-weight: 600; }
+
+/* Status chips: state in form + words, never colour alone */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 3px 7px; border-radius: 3px; border: 1px solid currentColor;
+}
+.chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.chip.ready { color: var(--good); background: var(--good-bg); }
+.chip.setup { color: var(--warn); background: var(--warn-bg); }
+.chip.untested { color: var(--info); background: var(--info-bg); }
+.chip.todo { color: var(--bad); background: var(--bad-bg); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; font-size: 13.5px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Engine status table */
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule-strong); background: var(--card); }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+th { text-align: left; font-family: var(--mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding: 10px 16px; border-bottom: 1px solid var(--rule-strong); }
+td { padding: 11px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Tab entries: same structure every time */
+.tabs { display: grid; gap: 14px; }
+.tab { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 20px 22px; display: grid; gap: 14px; }
+.tab-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
+.tab-head .route { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.tab-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.rows { display: grid; gap: 10px; }
+.row { display: grid; grid-template-columns: 120px 1fr; gap: 14px; font-size: 15px; }
+.row > span:first-child { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding-top: 4px; }
+.row > span:last-child { color: var(--ink-2); max-width: var(--measure); }
+.row.next > span:last-child { color: var(--ink); }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr; gap: 2px; } .row > span:first-child { padding-top: 0; } }
+
+.group-label { display: flex; align-items: baseline; gap: 12px; margin-top: 10px; }
+.group-label h3 { font-size: 26px; }
+
+/* Plans */
+.plans th:first-child, .plans td:first-child { width: 34%; }
+
+/* Checklist */
+.phase { display: grid; gap: 4px; }
+.phase + .phase { margin-top: 18px; }
+.phase h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule-strong); }
+.checks { list-style: none; margin: 0; padding: 0; }
+.checks li { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: start; padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.checks li::before { content: ""; width: 14px; height: 14px; border: 1.5px solid var(--ink-2); border-radius: 2px; margin-top: 4px; }
+.checks .who { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; padding-top: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+.checks small { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+@media (max-width: 560px) { .checks li { grid-template-columns: 22px 1fr; } .checks .who { grid-column: 2; } }
+
+.note { border-left: 3px solid var(--rule-strong); padding: 12px 16px; background: var(--card); font-size: 15px; color: var(--ink-2); }
+.note b { color: var(--ink); }
+
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.role { border-top: 3px solid var(--rule-strong); padding-top: 12px; display: grid; gap: 8px; align-content: start; }
+.role ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 15px; display: grid; gap: 4px; }
+
+footer { margin-top: 64px; padding-top: 16px; border-top: 3px double var(--rule-strong); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .nameplate .hl { animation: swipe 0.9s cubic-bezier(0.65, 0.05, 0.36, 1) 0.2s both; background-repeat: no-repeat; }
+  @keyframes swipe { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="dateline kicker">
+    <span>Partnership document · November 2026</span>
+    <span>For James &amp; Srinivas</span>
+  </div>
+
+  <header class="nameplate">
+    <div class="kicker">Mentiq AI · Field guide</div>
+    <h1>What we built, <em>and what's <span class="hl">left to do.</span></em></h1>
+    <p class="dek">Mentiq gets businesses recommended when their buyers ask ChatGPT, Gemini, Perplexity and Google's AI. This guide walks through every screen of the product, what each one does for a client, and the list of things we still need to do before we sell it.</p>
+    <div class="for">
+      <span><b>Read time</b> about 12 minutes</span>
+      <span><b>Status</b> built and running locally, partly tested with real AI</span>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <a href="#idea"><span>§1</span><span>The idea in one page</span></a>
+    <a href="#status"><span>§2</span><span>Where things stand today</span></a>
+    <a href="#site"><span>§3</span><span>The public website</span></a>
+    <a href="#client"><span>§4</span><span>The client dashboard, tab by tab</span></a>
+    <a href="#ops"><span>§5</span><span>Our Ops desk, tab by tab</span></a>
+    <a href="#engine"><span>§6</span><span>What runs automatically</span></a>
+    <a href="#plans"><span>§7</span><span>Plans, prices and costs</span></a>
+    <a href="#roles"><span>§8</span><span>Who does what</span></a>
+    <a href="#todo"><span>§9</span><span>What we need to do</span></a>
+  </nav>
+
+  <!-- ───────────── §1 ───────────── -->
+  <section id="idea">
+    <div class="sec-head">
+      <div class="kicker">§1 · The idea</div>
+      <h2>When buyers ask AI, our clients should be the answer.</h2>
+    </div>
+    <p class="lede">More and more buyers ask an AI assistant "who should I use for…" instead of searching Google. The AI names three to five businesses. If a business isn't one of them, the buyer never sees it. We sell a done-for-you service that tracks those answers every day and does the work to get our client named: content, site fixes and off-site mentions.</p>
+    <p>We sit between expensive agencies ($3k–8k a month, slow) and cheap tracking tools ($30–500 a month, but the client does all the work). Our price is $499–2,499 a month, month to month.</p>
+
+    <h3 style="margin-top:12px">Three groups of people use one app</h3>
+    <div class="trio">
+      <div>
+        <div class="kicker">Prospects</div>
+        <h3>The public website</h3>
+        <p>They read about Mentiq, run a free AI visibility check on their own site, and leave their email to unlock the full report. That makes them a lead for James.</p>
+      </div>
+      <div>
+        <div class="kicker">Paying clients</div>
+        <h3>The client dashboard</h3>
+        <p>They see how often AI recommends them, against which competitors, and everything we did for them this month. They approve our content before it goes live.</p>
+      </div>
+      <div>
+        <div class="kicker">James &amp; Srinivas</div>
+        <h3>The Ops desk</h3>
+        <p>Our internal console. Leads, clients, revenue, the content editing queue, and the background jobs that do the work.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:12px">A client's journey, start to finish</h3>
+    <ol class="journey">
+      <li><span>A business owner runs the <b>free check</b> on our website and sees which AI answers leave them out.</span></li>
+      <li><span>They unlock the full report with their email and become a <b>lead</b>.</span></li>
+      <li><span>James calls them, or they buy online. They <b>pick a plan and pay</b>.</span></li>
+      <li><span>They describe their business. Our site scan fills most of it in.</span></li>
+      <li><span>Within about an hour the app <b>writes their buyer questions</b>, audits their site, runs the first AI check and drafts a 90-day plan.</span></li>
+      <li><span>Every day after that, it <b>asks every question on every AI engine</b> in their plan and records who gets named.</span></li>
+      <li><span>Every month it <b>drafts their articles</b>. Our editor fact-checks each one, the client approves it, and it's published to their site.</span></li>
+    </ol>
+  </section>
+
+  <!-- ───────────── §2 ───────────── -->
+  <section id="status">
+    <div class="sec-head">
+      <div class="kicker">§2 · Status</div>
+      <h2>Where things stand today</h2>
+    </div>
+    <p class="lede">The whole product is built and runs on Srinivas's laptop. Every screen works. The AI parts have been tested with real accounts only partly, because some of the AI accounts aren't paid up yet.</p>
+
+    <div class="legend" aria-label="Status key">
+      <span><span class="chip ready">Ready</span> works and tested</span>
+      <span><span class="chip setup">Needs setup</span> built, waiting on an account or key</span>
+      <span><span class="chip untested">Not tested</span> built, never run for real</span>
+      <span><span class="chip todo">Not built</span> still to make</span>
+    </div>
+
+    <h3 style="margin-top:8px">The AI engines we track</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Engine</th><th>Status</th><th>What's needed</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude</td><td><span class="chip ready">Ready</span></td><td>Nothing. Tested with a real question. Included in every plan and listed first.</td></tr>
+          <tr><td>Google Search, AI Overviews, AI Mode</td><td><span class="chip ready">Ready</span></td><td>Nothing. Works through Apify, but each search takes 2–3 minutes. Fine for the nightly check.</td></tr>
+          <tr><td>ChatGPT</td><td><span class="chip setup">Needs setup</span></td><td>The OpenAI account has no credits. Add about $10 to the same organisation the key belongs to.</td></tr>
+          <tr><td>Gemini</td><td><span class="chip setup">Needs setup</span></td><td>The key is on Google's free tier, which doesn't allow web search. Turn on billing for that key's project.</td></tr>
+          <tr><td>Perplexity</td><td><span class="chip setup">Needs setup</span></td><td>No key yet. Part of every plan, so we need it before selling.</td></tr>
+          <tr><td>Grok</td><td><span class="chip setup">Needs setup</span></td><td>No key yet. Scale plan only.</td></tr>
+          <tr><td>Copilot</td><td><span class="chip todo">Not built</span></td><td>No public API. Needs a third-party scraper we haven't chosen. Scale plan only.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:8px">Everything else</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Part</th><th>Status</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Brand detection in AI answers</td><td><span class="chip ready">Ready</span></td><td>Correctly finds the client's name, its position in the list, and every other brand named.</td></tr>
+          <tr><td>Site crawler and audit</td><td><span class="chip ready">Ready</span></td><td>Tested on real websites.</td></tr>
+          <tr><td>Sign in with Google</td><td><span class="chip ready">Ready</span></td><td>Works locally. Google needs to verify the app before outside users can use it.</td></tr>
+          <tr><td>Payments (Stripe)</td><td><span class="chip setup">Needs setup</span></td><td>Built. Without keys, plans activate for free, which is fine for testing.</td></tr>
+          <tr><td>Emails to clients and leads</td><td><span class="chip setup">Needs setup</span></td><td>Built. Without an email account they're only printed to the server log.</td></tr>
+          <tr><td>Search Console and GA4 traffic</td><td><span class="chip untested">Not tested</span></td><td>Built, never connected to a real Google Analytics account.</td></tr>
+          <tr><td>Publishing to WordPress</td><td><span class="chip untested">Not tested</span></td><td>Built, never tried on a real WordPress site.</td></tr>
+          <tr><td>Hosting on the internet</td><td><span class="chip todo">Not built</span></td><td>Runs only on Srinivas's laptop today.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ───────────── §3 ───────────── -->
+  <section id="site">
+    <div class="sec-head">
+      <div class="kicker">§3 · Public website</div>
+      <h2>What a prospect sees</h2>
+    </div>
+
+    <div class="tabs">
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Homepage</h3><span class="chip ready">Ready</span></div><span class="route">/</span></div>
+        <div class="rows">
+          <div class="row"><span>What it does</span><span>Explains the problem and the service, shows a sample AI answer with a client's name highlighted, a dashboard preview, a comparison with agencies and tools, pricing and FAQ. The website box at the top starts the free check.</span></div>
+          <div class="row next"><span>Still to do</span><span>Add real client results once we have them. The dashboard numbers shown today are clearly marked as illustrative.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Pricing</h3><span class="chip ready">Ready</span></div><span class="route">/pricing</span></div>
+        <div class="rows">
+          <div class="row"><span>What it does</span><span>The three plans and a full comparison table. Each "Start" button leads to sign-up with that plan selected.</span></div>
+          <div class="row next"><span>Still to do</span><span>James to confirm final prices. They currently copy Strategi's ($499 / $999 / $2,499).</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Free AI visibility check &amp; report</h3><span class="chip setup">Needs setup</span></div><span class="route">/check → /report</span></div>
+        <div class="rows">
+          <div class="row"><span>What it does</span><span>Our lead magnet. A visitor enters their website. In about two minutes we read the site, work out what they sell, write 8 questions their buyers would ask, put them to 3 AI engines live, and score them out of 100. They see the top 3 questions for free. Their email unlocks the rest: every answer, who AI recommends instead, and a site audit with fixes.</span></div>
+          <div class="row"><span>Behind it</span><span>Each check costs us about $0.50–1 in AI calls. It's limited to 5 checks per visitor per day, and a site checked in the last 24 hours shows the saved report instead.</span></div>
+          <div class="row next"><span>Still to do</span><span>Needs ChatGPT and Gemini or Perplexity working. With only Claude, the report doesn't reflect what most buyers use.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Sign up, sign in &amp; onboarding</h3><span class="chip ready">Ready</span></div><span class="route">/signup · /login · /onboarding</span></div>
+        <div class="rows">
+          <div class="row"><span>What it does</span><span>Email or Google sign-in. A new client picks a plan, pays, then confirms their business: website, what they sell, audience, location and competitors. "Auto-fill from site" reads their homepage and fills most of it in.</span></div>
+          <div class="row next"><span>Still to do</span><span>Connect Stripe so the payment step is real. There's no "forgot password" email yet.</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ───────────── §4 ───────────── -->
+  <section id="client">
+    <div class="sec-head">
+      <div class="kicker">§4 · Client dashboard</div>
+      <h2>What a paying client sees, tab by tab</h2>
+    </div>
+    <p class="lede">The dashboard is set up like a daily newspaper about the client: a masthead with today's date, and tabs across the top. Each entry below covers what the client sees, what we do behind it, and what's left.</p>
+
+    <div class="tabs">
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Briefing</h3><span class="chip ready">Ready</span></div><span class="route">/app</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>A front-page headline written from their numbers ("AI named you in 52% of answers, up 12 points this week"), their score out of 100, the four key numbers, a trend chart against competitors, results per AI engine, this month's work, a feed of what we did, and their 90-day plan.</span></div>
+          <div class="row"><span>We do</span><span>Nothing by hand. It's built from the daily check, the audit and the content pipeline.</span></div>
+          <div class="row next"><span>Still to do</span><span>A monthly summary email or PDF of this page, which clients can forward to their boss.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Buyer questions</h3><span class="chip ready">Ready</span></div><span class="route">/app/questions</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>The questions we track for them (50, 100 or 250 by plan) and a grid of each question against each engine, marked #1, #2 or "not named". Clicking a question shows the full AI answers with their name highlighted and the sources each engine cited.</span></div>
+          <div class="row"><span>We do</span><span>The app writes the questions from their business profile. We can add, pause or rewrite them. "Rewrite all" replaces them after a profile change.</span></div>
+          <div class="row next"><span>Still to do</span><span>Review the first real question sets by hand, to make sure they're what buyers actually ask.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Competitors</h3><span class="chip ready">Ready</span></div><span class="route">/app/competitors</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>How often each competitor is named versus them, share of voice, 30-day trends, how many answers named a competitor instead of them, and other brands AI keeps recommending that they don't track yet.</span></div>
+          <div class="row next"><span>Still to do</span><span>Nothing required.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Content</h3><span class="chip untested">Not tested</span></div><span class="route">/app/content</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>This month's articles, money pages and page rewrites, with a status on each: planned, being written, with our editors, needs your approval, approved, published. They read and approve each piece, or ask for changes.</span></div>
+          <div class="row"><span>We do</span><span>At the start of each month the app plans pieces aimed at the questions where the client is weakest, then drafts them. Anything it can't confirm is marked <code>[VERIFY: …]</code>, and a piece can't reach the client until a person fills those in. This is real editing work for us.</span></div>
+          <div class="row next"><span>Still to do</span><span>Run the full monthly cycle once with real keys and judge the draft quality. Decide who edits.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Site fixes</h3><span class="chip ready">Ready</span></div><span class="route">/app/fixes</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>An AI-readiness score, which AI crawlers their site blocks, and a prioritised fix list (high, medium, low), each marked as done by us or by their team.</span></div>
+          <div class="row"><span>We do</span><span>The crawler re-audits on the plan's schedule (once, monthly or weekly). When a fix passes the next audit, it's marked done automatically. We make the actual fixes on Growth and Scale.</span></div>
+          <div class="row next"><span>Still to do</span><span>Decide how we get access to client websites to make the fixes.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Off-site</h3><span class="chip setup">Needs setup</span></div><span class="route">/app/offsite · Scale only</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>Listings and review sites to claim (Google Business, Yelp, G2 and others), and the Reddit and Quora threads where buyers are asking their questions.</span></div>
+          <div class="row"><span>We do</span><span>The app finds the opportunities weekly. A person then replies genuinely, as the client. Nothing posts automatically, because fake accounts get banned and damage the client's name.</span></div>
+          <div class="row next"><span>Still to do</span><span>Publisher pitches and the monthly data study are promised on the Scale plan but have no tooling yet. They're manual for now.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Traffic</h3><span class="chip untested">Not tested</span></div><span class="route">/app/traffic</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>Visitors and conversions arriving from ChatGPT, Perplexity, Gemini and others, plus their Google clicks and impressions. This proves the work turns into business.</span></div>
+          <div class="row"><span>We do</span><span>The client connects their Google account once, read-only. It syncs daily.</span></div>
+          <div class="row next"><span>Still to do</span><span>Test with a real Google Analytics account. Google must verify our app before outside clients can connect.</span></div>
+        </div>
+      </article>
+
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Settings</h3><span class="chip ready">Ready</span></div><span class="route">/app/settings</span></div>
+        <div class="rows">
+          <div class="row"><span>Client sees</span><span>Their business profile (editable, with a "profile strength" score), Google and WordPress connections, their plan with usage (questions, competitors, content this month), upgrade options, billing and account.</span></div>
+          <div class="row next"><span>Still to do</span><span>Billing management goes live with Stripe.</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ───────────── §5 ───────────── -->
+  <section id="ops">
+    <div class="sec-head">
+      <div class="kicker">§5 · Ops desk</div>
+      <h2>Our internal console, tab by tab</h2>
+    </div>
+    <p class="lede">Only emails on our admin list can open it. A black "Ops desk · internal" strip runs across the top so we never confuse it with a client's view.</p>
+
+    <div class="tabs">
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Desk</h3><span class="chip ready">Ready</span></div><span class="route">/admin</span></div>
+        <div class="rows">
+          <div class="row"><span>Shows</span><span>Monthly recurring revenue, active and onboarding clients, past-due payments, new leads this week, drafts waiting for editing, clients whose visibility dropped this week, and which keys are set up on the server.</span></div>
+        </div>
+      </article>
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Clients</h3><span class="chip ready">Ready</span></div><span class="route">/admin/clients</span></div>
+        <div class="rows">
+          <div class="row"><span>Shows</span><span>Every client with plan, status, score, trend and content delivered this month. "Open dashboard" lets us see exactly what the client sees.</span></div>
+          <div class="row"><span>James uses</span><span><b>New client</b>: for deals closed on a call. It creates the workspace, emails the client a login and starts setup. Billing is sent separately through a Stripe invoice.</span></div>
+        </div>
+      </article>
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Review queue</h3><span class="chip untested">Not tested</span></div><span class="route">/admin/review</span></div>
+        <div class="rows">
+          <div class="row"><span>Shows</span><span>Every AI draft waiting for a person, oldest first, with how many facts still need checking. The editor edits in place, then sends it to the client, approves it, asks for an AI rewrite with notes, or drops it.</span></div>
+          <div class="row next"><span>Still to do</span><span>This is the main ongoing workload. Roughly 20–30 minutes per article.</span></div>
+        </div>
+      </article>
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Leads</h3><span class="chip ready">Ready</span></div><span class="route">/admin/leads</span></div>
+        <div class="rows">
+          <div class="row"><span>Shows</span><span>Everyone who unlocked a free report: email, website, score and a link to their report. James moves them through new → contacted → call booked → won or lost, with notes.</span></div>
+        </div>
+      </article>
+      <article class="tab">
+        <div class="tab-head"><div class="tab-title"><h3>Jobs</h3><span class="chip ready">Ready</span></div><span class="route">/admin/jobs</span></div>
+        <div class="rows">
+          <div class="row"><span>Shows</span><span>The background work queue: what's running, finished or failed, with the error. Failed jobs retry automatically. When something on a dashboard looks stuck, check here first.</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ───────────── §6 ───────────── -->
+  <section id="engine">
+    <div class="sec-head">
+      <div class="kicker">§6 · Automation</div>
+      <h2>What runs automatically</h2>
+    </div>
+    <p class="lede">A background "worker" runs next to the website and does all the slow AI work. If the worker isn't running, nothing new happens. Every night at 05:00 UTC it schedules each active client's work:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Work</th><th>How often</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td>AI answer check</td><td>Daily</td><td>Every active question on every engine in the plan. Results roll up into that day's score.</td></tr>
+          <tr><td>Traffic sync</td><td>Daily</td><td>Pulls Search Console and GA4 numbers, if connected.</td></tr>
+          <tr><td>Site audit</td><td>Once, monthly or weekly</td><td>Depends on plan: Starter once, Growth monthly, Scale weekly.</td></tr>
+          <tr><td>Content plan and drafts</td><td>Monthly</td><td>Fills the month's quota and drafts each piece for editing.</td></tr>
+          <tr><td>Off-site opportunities</td><td>Weekly (Mondays)</td><td>Scale only. Finds new Reddit and Quora threads.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ───────────── §7 ───────────── -->
+  <section id="plans">
+    <div class="sec-head">
+      <div class="kicker">§7 · Money</div>
+      <h2>Plans, prices and what each costs us</h2>
+    </div>
+    <div class="table-scroll plans">
+      <table>
+        <thead><tr><th></th><th class="num">Starter</th><th class="num">Growth</th><th class="num">Scale</th></tr></thead>
+        <tbody>
+          <tr><td>Price per month</td><td class="num">$499</td><td class="num">$999</td><td class="num">$2,499</td></tr>
+          <tr><td>Buyer questions tracked daily</td><td class="num">50</td><td class="num">100</td><td class="num">250</td></tr>
+          <tr><td>AI engines (Claude first)</td><td class="num">4</td><td class="num">7</td><td class="num">9</td></tr>
+          <tr><td>Articles + money pages a month</td><td class="num">10 + 0</td><td class="num">15 + 5</td><td class="num">20 + 10</td></tr>
+          <tr><td>Existing pages improved a month</td><td class="num">0</td><td class="num">6</td><td class="num">20</td></tr>
+          <tr><td>Competitors tracked</td><td class="num">3</td><td class="num">5</td><td class="num">10</td></tr>
+          <tr><td>AI cost to us (estimate)</td><td class="num">~$100</td><td class="num">~$270</td><td class="num">~$1,100</td></tr>
+          <tr><td>Editor time a month (estimate)</td><td class="num">4–5 hrs</td><td class="num">8–10 hrs</td><td class="num">15–20 hrs</td></tr>
+          <tr><td>Left after AI, Stripe and an editor (estimate)</td><td class="num">~$250–330</td><td class="num">~$400–550</td><td class="num">~$700–900</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">Estimates are from published API prices and change often; check them before final pricing. Fixed running costs add about $50–150 a month in total: hosting, database, email and domain.</p>
+    <div class="note"><b>Scale is the risky plan.</b> At 250 questions on 9 engines it makes about 2,250 AI calls a day per client, so most of its price goes to AI costs. Before selling Scale we should either charge more, or check the slower engines every 2–3 days instead of daily.</div>
+  </section>
+
+  <!-- ───────────── §8 ───────────── -->
+  <section id="roles">
+    <div class="sec-head">
+      <div class="kicker">§8 · Roles</div>
+      <h2>Who does what</h2>
+    </div>
+    <div class="roles">
+      <div class="role">
+        <h3>James · sales</h3>
+        <ul>
+          <li>Picks the niche we sell to first</li>
+          <li>Sends free-check reports to prospects and books calls</li>
+          <li>Works the Leads tab</li>
+          <li>Closes deals and adds clients from the Ops desk</li>
+          <li>Account management: renewals, upgrades, client questions</li>
+        </ul>
+      </div>
+      <div class="role">
+        <h3>Srinivas · product</h3>
+        <ul>
+          <li>Keeps the platform, worker and AI engines running</li>
+          <li>Sets up accounts, hosting, payments and email</li>
+          <li>Watches the Jobs tab and fixes failures</li>
+          <li>Improves the product from client feedback</li>
+        </ul>
+      </div>
+      <div class="role">
+        <h3>To decide · delivery</h3>
+        <ul>
+          <li>Who edits and fact-checks articles (the biggest time cost)</li>
+          <li>Who makes site fixes on client websites</li>
+          <li>Who does Reddit, Quora and listings work for Scale clients</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── §9 ───────────── -->
+  <section id="todo">
+    <div class="sec-head">
+      <div class="kicker">§9 · The list</div>
+      <h2>What we need to do</h2>
+    </div>
+    <p class="lede">In order. Don't start the next stage until the one before it is done.</p>
+
+    <div class="phase">
+      <h3>This week <span class="chip setup">Make it work for real</span></h3>
+      <ul class="checks">
+        <li><span>Add OpenAI credits so ChatGPT works<small>The most important engine. Clients care about ChatGPT first.</small></span><span class="who">Srinivas</span></li>
+        <li><span>Turn on Gemini billing and add a Perplexity key<small>Completes the four Starter engines: Claude, ChatGPT, Gemini and Perplexity.</small></span><span class="who">Srinivas</span></li>
+        <li><span>Run the free check on 5 real businesses and read every answer<small>Confirm the app correctly spots when a business is named. If it doesn't, nothing else matters.</small></span><span class="who">Both</span></li>
+        <li><span>Run one full month of content for a test client and judge the drafts</span><span class="who">Both</span></li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <h3>Before the first paying client <span class="chip untested">Decide &amp; set up</span></h3>
+      <ul class="checks">
+        <li><span>Pick one niche to sell to first<small>For example dental clinics, law firms, home services or B2B software. Sharper questions, case studies that carry over, easier sales.</small></span><span class="who">James</span></li>
+        <li><span>Choose the brand name<small>"Mentiq" is already used by at least three companies, two of them in software, and mentiq.com is taken. Check trademark and domain before building the brand.</small></span><span class="who">Both</span></li>
+        <li><span>Confirm final prices</span><span class="who">James</span></li>
+        <li><span>Set up Stripe with the three monthly prices</span><span class="who">Srinivas</span></li>
+        <li><span>Set up a sending email account and a business email domain</span><span class="who">Srinivas</span></li>
+        <li><span>Put the app online (website, worker and database)<small>Recommended: Railway or Render, plus MongoDB Atlas.</small></span><span class="who">Srinivas</span></li>
+        <li><span>Get Google to verify the app<small>Needed before outside clients can sign in with Google or connect Analytics.</small></span><span class="who">Srinivas</span></li>
+        <li><span>Decide who edits content, and our rule for fact-checking</span><span class="who">Both</span></li>
+        <li><span>Sign a partnership agreement<small>Ownership split, vesting, who owns the code and brand, and what happens if one of us leaves.</small></span><span class="who">Both</span></li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <h3>First 90 days <span class="chip ready">Sell</span></h3>
+      <ul class="checks">
+        <li><span>Day 30: 50+ free checks run and 10+ sales calls booked</span><span class="who">James</span></li>
+        <li><span>Day 60: 3–5 paying clients, delivered partly by hand where needed</span><span class="who">Both</span></li>
+        <li><span>Day 90: at least one client with clearly better AI visibility, and no cancellations<small>That before-and-after chart becomes our main sales tool.</small></span><span class="who">Both</span></li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <h3>Later <span class="chip todo">Not built yet</span></h3>
+      <ul class="checks">
+        <li><span>Monthly report email or PDF for clients</span><span class="who">Srinivas</span></li>
+        <li><span>"Forgot password" email</span><span class="who">Srinivas</span></li>
+        <li><span>Tooling for publisher pitches and data studies (Scale)</span><span class="who">Srinivas</span></li>
+        <li><span>Copilot tracking, and cheaper tracking for Scale</span><span class="who">Srinivas</span></li>
+        <li><span>Automated tests</span><span class="who">Srinivas</span></li>
+      </ul>
+    </div>
+
+    <div class="note"><b>The one thing to remember:</b> the product is far enough along. What decides whether this works is whether James can get 3–5 businesses in one niche to pay, and whether their numbers go up. Add features only when a real client asks for them.</div>
+  </section>
+
+  <footer>
+    <span class="kicker">Mentiq AI · Field guide</span>
+    <span class="kicker">Prepared November 2026</span>
+  </footer>
+</div>
+</body>
+</html>
