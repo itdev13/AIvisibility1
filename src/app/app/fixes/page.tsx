@@ -89,7 +89,7 @@ export default async function FixesPage({ searchParams }: { searchParams: Promis
                     <Badge tone={IMPACT_TONE[f.impact]} className="w-[68px] justify-center capitalize">{f.impact}</Badge>
                     <span className="min-w-0 flex-1 text-[14px] font-medium text-ink-900">{f.title}</span>
                     <span className="text-[12px] text-ink-500">{AREA[f.area]}</span>
-                    <Badge tone={f.owner === "client" ? "info" : "neutral"}>{f.owner === "client" ? "Your team" : "Mentiq"}</Badge>
+                    <Badge tone={f.owner === "client" ? "info" : "neutral"}>{f.owner === "client" ? "Your team" : "BayClusterLab"}</Badge>
                     {f.status === "in_progress" && <Badge tone="info" dot>In progress</Badge>}
                     <span className="text-ink-400 transition group-open:rotate-90">›</span>
                   </summary>

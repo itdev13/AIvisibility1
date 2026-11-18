@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import { domainOf, pool } from "../utils";
 
-export const BOT_UA = "Mozilla/5.0 (compatible; MentiqBot/1.0; +https://mentiq.ai/bot)";
+export const BOT_UA = "Mozilla/5.0 (compatible; BayClusterLabBot/1.0; +https://bayclusterlab.com/bot)";
 
 export interface FetchedPage {
   url: string;

@@ -179,7 +179,7 @@ const FixSchema = S(
     area: { type: String, enum: ["ai-access", "technical", "schema", "content", "offsite"], default: "technical" },
     impact: { type: String, enum: ["high", "medium", "low"], default: "medium" },
     page: { type: String, default: "" },
-    owner: { type: String, enum: ["mentiq", "client"], default: "mentiq" },
+    owner: { type: String, enum: ["bayclusterlab", "client"], default: "bayclusterlab" },
     status: { type: String, enum: ["open", "in_progress", "done", "wont_fix"], default: "open" },
     doneAt: Date,
   },

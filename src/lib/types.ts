@@ -134,7 +134,7 @@ export interface FixDoc extends Base {
   area: "ai-access" | "technical" | "schema" | "content" | "offsite";
   impact: "high" | "medium" | "low";
   page: string;
-  owner: "mentiq" | "client";
+  owner: "bayclusterlab" | "client";
   status: FixStatus;
   doneAt?: Date | null;
 }

@@ -9,7 +9,7 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono", display: 
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url()),
-  title: { default: "Mentiq AI — Get recommended when buyers ask AI", template: "%s · Mentiq AI" },
+  title: { default: "BayClusterLab — Get recommended when buyers ask AI", template: "%s · BayClusterLab" },
   description: SITE.description,
   applicationName: SITE.name,
   alternates: { canonical: "/" },
@@ -17,11 +17,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE.name,
     url: "/",
-    title: "Mentiq AI — When buyers ask AI, be the answer.",
+    title: "BayClusterLab — When buyers ask AI, be the answer.",
     description: SITE.description,
     locale: "en_US",
   },
-  twitter: { card: "summary_large_image", title: "Mentiq AI — When buyers ask AI, be the answer.", description: SITE.description },
+  twitter: { card: "summary_large_image", title: "BayClusterLab — When buyers ask AI, be the answer.", description: SITE.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" } },
   formatDetection: { telephone: false, email: false, address: false },
 };

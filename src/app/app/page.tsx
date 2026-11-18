@@ -96,7 +96,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
         <Card className="p-8">
           <div className="max-w-xl">
             <Badge tone="info" dot>{running ? "In progress" : "Waiting"}</Badge>
-            <h2 className="display mt-4 text-[34px] text-ink-950">{welcome ? `Welcome to Mentiq, ${client.name}.` : "Your workspace is being set up."}</h2>
+            <h2 className="display mt-4 text-[34px] text-ink-950">{welcome ? `Welcome to BayClusterLab, ${client.name}.` : "Your workspace is being set up."}</h2>
             <p className="mt-2 text-[14.5px] leading-relaxed text-ink-600">
               We're putting {plan.questions} buyer questions to {plan.engines.length} AI engines, crawling your site and drafting your roadmap. Most dashboards are live within the hour. This page updates on refresh.
             </p>

@@ -8,13 +8,13 @@ import { PLAN_LIST } from "./plans";
 export const SHOW_PRICING = false;
 export const SHOW_LOGIN = false;
 
-/** One source of truth for how Mentiq describes itself to search engines and AI crawlers. */
+/** One source of truth for how BayClusterLab describes itself to search engines and AI crawlers. */
 export const SITE = {
-  name: "Mentiq AI",
-  shortName: "Mentiq",
+  name: "BayClusterLab",
+  shortName: "BayClusterLab",
   tagline: "Get recommended when buyers ask AI",
   description:
-    "Mentiq gets small businesses recommended when customers ask AI. We check what Claude, ChatGPT, Gemini, Perplexity and Google's AI say about you, then do all the work to get you named: website fixes, content, listings and a monthly report.",
+    "BayClusterLab gets small businesses recommended when customers ask AI. We check what Claude, ChatGPT, Gemini, Perplexity and Google's AI say about you, then do all the work to get you named: website fixes, content, listings and a monthly report.",
   url: () => env.appUrl(),
 };
 

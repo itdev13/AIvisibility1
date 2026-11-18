@@ -1,6 +1,6 @@
 /**
  * Create (or reset the password of) an Ops admin.
- *   npm run seed:admin -- you@mentiq.ai "a-strong-password" "Your Name"
+ *   npm run seed:admin -- you@bayclusterlab.com "a-strong-password" "Your Name"
  * The email must also be listed in ADMIN_EMAILS, or the role is reset at next login.
  */
 import mongoose from "mongoose";

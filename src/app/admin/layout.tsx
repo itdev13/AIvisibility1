@@ -33,7 +33,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="bg-ink-950">
           <div className="eyebrow mx-auto flex h-8 max-w-[1280px] items-center justify-between gap-4 px-5 !text-[10px] !text-white/60">
             <span className="flex items-center gap-2">
-              <span className="bg-lime px-1.5 py-[1px] text-ink-950">Ops desk</span> Internal · Mentiq staff only
+              <span className="bg-lime px-1.5 py-[1px] text-ink-950">Ops desk</span> Internal · BayClusterLab staff only
             </span>
             <span className="hidden sm:block">{dateline}</span>
           </div>

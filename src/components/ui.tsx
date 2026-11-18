@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 export function Logo({ className, dark = false, size = "md" }: { className?: string; dark?: boolean; size?: "sm" | "md" | "lg" }) {
   const px = { sm: 20, md: 25, lg: 34 }[size];
   return (
-    <span className={cn("inline-flex select-none items-baseline", className)} aria-label="Mentiq">
+    <span className={cn("inline-flex select-none items-baseline", className)} aria-label="BayClusterLab">
       <span className={cn("display leading-none", dark ? "text-white" : "text-ink-950")} style={{ fontSize: px, letterSpacing: "-0.035em" }}>
-        Ment<span className="hl-under" style={{ padding: "0 0.04em" }}>iq</span>
+        BayCluster<span className="hl-under" style={{ padding: "0 0.04em" }}>Lab</span>
       </span>
     </span>
   );

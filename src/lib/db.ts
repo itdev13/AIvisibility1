@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import { env } from "./env";
 
 type Cache = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
-const g = globalThis as unknown as { __mentiqMongo?: Cache };
-const cache: Cache = g.__mentiqMongo ?? (g.__mentiqMongo = { conn: null, promise: null });
+const g = globalThis as unknown as { __appMongo?: Cache };
+const cache: Cache = g.__appMongo ?? (g.__appMongo = { conn: null, promise: null });
 
 /** Connect once per process (survives Next.js hot reloads). */
 export async function db() {

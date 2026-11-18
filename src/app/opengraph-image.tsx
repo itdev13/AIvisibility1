@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Mentiq AI — When buyers ask AI, be the answer.";
+export const alt = "BayClusterLab — When buyers ask AI, be the answer.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -11,7 +11,7 @@ export default function OpengraphImage() {
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#F5F2EB", padding: "56px 72px", color: "#12100D" }}>
         <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "2px solid #12100D", paddingBottom: 18, fontSize: 22, letterSpacing: 4 }}>
           <div style={{ display: "flex", fontSize: 40, fontWeight: 700, letterSpacing: -1 }}>
-            Ment<span style={{ background: "#E4FF3C", padding: "0 4px" }}>iq</span>
+            BayCluster<span style={{ background: "#E4FF3C", padding: "0 4px" }}>Lab</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", color: "#4A453D" }}>AI VISIBILITY, DONE FOR YOU</div>
         </div>
