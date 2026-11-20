@@ -14,7 +14,7 @@ import { cn, monthKey } from "@/lib/utils";
 const GOOGLE_MSG: Record<string, [string, "good" | "bad" | "warn"]> = {
   connected: ["Google connected. Choose your Search Console site and GA4 property below.", "good"],
   denied: ["Google access was cancelled.", "warn"],
-  norefresh: ["Google didn't grant offline access. Remove BayClusterLab from your Google account permissions and connect again.", "bad"],
+  norefresh: ["Google didn't grant offline access. Remove SeoWaveTech from your Google account permissions and connect again.", "bad"],
   state: ["That connection link expired. Please try again.", "bad"],
   error: ["Something went wrong connecting Google.", "bad"],
 };
@@ -201,7 +201,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
                     <ol className="mb-5 space-y-2 text-[13px] text-ink-600">
                       {[
                         "In WordPress, go to Users → Profile.",
-                        "Scroll to Application Passwords, type “BayClusterLab”, and click Add New.",
+                        "Scroll to Application Passwords, type “SeoWaveTech”, and click Add New.",
                         "Copy the password it shows and paste it below with your username.",
                       ].map((t, i) => (
                         <li key={i} className="flex gap-2.5">
@@ -292,7 +292,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
                       ))}
                     </div>
                     <p className="mt-3 text-[12.5px] text-ink-500">
-                      {canManageBilling ? "Switch plans from Manage billing above. Changes take effect immediately." : "Reply to any BayClusterLab email or ask your account manager to switch."}{" "}
+                      {canManageBilling ? "Switch plans from Manage billing above. Changes take effect immediately." : "Reply to any SeoWaveTech email or ask your account manager to switch."}{" "}
                       <Link href="/pricing" className="underline underline-offset-2 hover:text-ink-900">Compare plans</Link>
                     </p>
                   </div>
@@ -304,9 +304,9 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
           </Section>
 
           {/* ───── Account ───── */}
-          <Section id="account" title="Account" aside="How you sign in to BayClusterLab.">
+          <Section id="account" title="Account" aside="How you sign in to SeoWaveTech.">
             {viewingAs ? (
-              <Card className="p-5 text-[13px] text-ink-500">You're viewing this workspace as BayClusterLab staff. Account settings belong to the client.</Card>
+              <Card className="p-5 text-[13px] text-ink-500">You're viewing this workspace as SeoWaveTech staff. Account settings belong to the client.</Card>
             ) : (
               <Card className="divide-y divide-ink-100">
                 <div className="flex flex-wrap items-center justify-between gap-3 p-5 sm:p-6">

@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 /**
- * BayClusterLab "Highlighter editorial" system.
+ * SeoWaveTech "Highlighter editorial" system.
  * Warm newsprint paper, warm-black ink, hairline rules, one neon highlighter accent.
  * `white` is remapped to a warm card stock so every surface sits on the same paper family.
  */

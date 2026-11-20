@@ -19,7 +19,7 @@ export function SiteNav() {
       </div>
       <div className="border-b border-ink-950">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
-          <Link href="/" aria-label="BayClusterLab home">
+          <Link href="/" aria-label="SeoWaveTech home">
             <Logo />
           </Link>
           <nav className="hidden items-center gap-8 text-[14px] text-ink-700 md:flex">
@@ -74,7 +74,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-ink-200">
         <div className="eyebrow mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-5 py-5 !text-[10px]">
-          <span>© {new Date().getFullYear()} BayClusterLab</span>
+          <span>© {new Date().getFullYear()} SeoWaveTech</span>
           <span>Not affiliated with OpenAI, Google, Perplexity, Anthropic, Microsoft or xAI</span>
         </div>
       </div>

@@ -16,7 +16,7 @@ export interface FixSuggestion {
   area: Area;
   impact: "high" | "medium" | "low";
   page?: string;
-  owner: "bayclusterlab" | "client";
+  owner: "seowavetech" | "client";
 }
 
 const WEIGHT = { fail: 0, warn: 0.5, pass: 1 } as const;
@@ -67,7 +67,7 @@ export function runChecks(c: SiteCrawl) {
       status: c.llmsTxt ? "pass" : "warn",
       detail: c.llmsTxt ? "Found /llms.txt." : "No /llms.txt. It gives AI tools a clean summary of who you are and your key pages.",
     },
-    { impact: "low", owner: "bayclusterlab", title: "Publish an llms.txt file", detail: "We'll write an llms.txt that summarises the business, services and the most important URLs, and give it to you to upload at the site root." },
+    { impact: "low", owner: "seowavetech", title: "Publish an llms.txt file", detail: "We'll write an llms.txt that summarises the business, services and the most important URLs, and give it to you to upload at the site root." },
   );
 
   if (home) {
@@ -100,7 +100,7 @@ export function runChecks(c: SiteCrawl) {
   );
   add(
     { id: "sitemap", title: "XML sitemap found", area: "technical", status: c.sitemapUrls.length ? "pass" : "warn", detail: c.sitemapUrls.length ? `${c.sitemapUrls.length} URLs listed in the sitemap.` : "No sitemap found at /sitemap.xml or declared in robots.txt." },
-    { impact: "medium", owner: "bayclusterlab", title: "Create and submit an XML sitemap", detail: "Generate a sitemap of all indexable pages, reference it in robots.txt and submit it in Search Console." },
+    { impact: "medium", owner: "seowavetech", title: "Create and submit an XML sitemap", detail: "Generate a sitemap of all indexable pages, reference it in robots.txt and submit it in Search Console." },
   );
 
   // Nothing fetched (WAF / bot protection / downtime): page checks would "pass" vacuously, so stop here.
@@ -116,7 +116,7 @@ export function runChecks(c: SiteCrawl) {
   const longTitle = pages.filter((p) => p.title.length > 65);
   add(
     { id: "titles", title: "Every page has a clear title", area: "technical", status: missingTitle.length ? "fail" : longTitle.length > pages.length / 3 ? "warn" : "pass", detail: missingTitle.length ? `${missingTitle.length} pages have no <title>.` : longTitle.length ? `${longTitle.length} titles are longer than 65 characters.` : "All titles look good." },
-    { impact: missingTitle.length ? "high" : "low", owner: "bayclusterlab", title: "Fix missing and over-long page titles", detail: list([...missingTitle, ...longTitle].map((p) => p.url)) },
+    { impact: missingTitle.length ? "high" : "low", owner: "seowavetech", title: "Fix missing and over-long page titles", detail: list([...missingTitle, ...longTitle].map((p) => p.url)) },
   );
 
   const titleCounts = new Map<string, number>();
@@ -125,19 +125,19 @@ export function runChecks(c: SiteCrawl) {
   if (pages.length > 3)
     add(
       { id: "dup-titles", title: "Titles are unique", area: "technical", status: dupTitles.length ? "warn" : "pass", detail: dupTitles.length ? `${dupTitles.length} pages share a title with another page.` : "No duplicate titles." },
-      { impact: "medium", owner: "bayclusterlab", title: "Make duplicate page titles unique", detail: list(dupTitles.map((p) => `${p.url} — "${p.title}"`)) },
+      { impact: "medium", owner: "seowavetech", title: "Make duplicate page titles unique", detail: list(dupTitles.map((p) => `${p.url} — "${p.title}"`)) },
     );
 
   const noMeta = pages.filter((p) => !p.metaDescription);
   add(
     { id: "meta", title: "Pages have meta descriptions", area: "technical", status: noMeta.length > pages.length / 2 ? "fail" : noMeta.length ? "warn" : "pass", detail: noMeta.length ? `${noMeta.length} of ${pages.length} pages have no meta description.` : "All pages have meta descriptions." },
-    { impact: "medium", owner: "bayclusterlab", title: "Write meta descriptions that answer the query", detail: list(noMeta.map((p) => p.url)) },
+    { impact: "medium", owner: "seowavetech", title: "Write meta descriptions that answer the query", detail: list(noMeta.map((p) => p.url)) },
   );
 
   const badH1 = pages.filter((p) => p.h1.length !== 1);
   add(
     { id: "h1", title: "One H1 per page", area: "technical", status: badH1.length > pages.length / 2 ? "fail" : badH1.length ? "warn" : "pass", detail: badH1.length ? `${badH1.length} pages have no H1 or more than one.` : "Heading structure looks right." },
-    { impact: "medium", owner: "bayclusterlab", title: "Fix H1 headings", detail: list(badH1.map((p) => `${p.url} (${p.h1.length} H1s)`)) },
+    { impact: "medium", owner: "seowavetech", title: "Fix H1 headings", detail: list(badH1.map((p) => `${p.url} (${p.h1.length} H1s)`)) },
   );
 
   // Only a problem when the site's own sitemap lists the page: that's a page they want found.
@@ -146,7 +146,7 @@ export function runChecks(c: SiteCrawl) {
   if (noindex.length)
     add(
       { id: "noindex", title: "Important pages are indexable", area: "technical", status: "warn", detail: `${noindex.length} pages in your sitemap are marked noindex, so search and AI engines will skip them.` },
-      { impact: "medium", owner: "bayclusterlab", title: "Review noindexed pages", detail: `Check these are meant to be hidden from search and AI:\n${list(noindex.map((p) => p.url))}` },
+      { impact: "medium", owner: "seowavetech", title: "Review noindexed pages", detail: `Check these are meant to be hidden from search and AI:\n${list(noindex.map((p) => p.url))}` },
     );
 
   const slow = pages.filter((p) => p.ms > 2500);
@@ -160,7 +160,7 @@ export function runChecks(c: SiteCrawl) {
   if (totalImg > 0)
     add(
       { id: "alt", title: "Images have alt text", area: "technical", status: missingAlt / totalImg > 0.3 ? "warn" : "pass", detail: `${missingAlt} of ${totalImg} images have no alt text.` },
-      { impact: "low", owner: "bayclusterlab", title: "Add descriptive alt text to images", detail: list(pages.filter((p) => p.imgMissingAlt > 0).map((p) => `${p.url} (${p.imgMissingAlt} images)`)) },
+      { impact: "low", owner: "seowavetech", title: "Add descriptive alt text to images", detail: list(pages.filter((p) => p.imgMissingAlt > 0).map((p) => `${p.url} (${p.imgMissingAlt} images)`)) },
     );
 
   /* ── Schema ── */
@@ -168,47 +168,47 @@ export function runChecks(c: SiteCrawl) {
   const hasOrg = ["Organization", "LocalBusiness", "Corporation", "ProfessionalService", "Store", "Restaurant", "MedicalBusiness", "LegalService"].some((t) => allTypes.has(t)) || [...allTypes].some((t) => /Business|Service|Organization/.test(t));
   add(
     { id: "schema-org", title: "Organization schema describes the business", area: "schema", status: hasOrg ? "pass" : "fail", detail: hasOrg ? "Organization / LocalBusiness markup found." : "No Organization or LocalBusiness structured data. AI engines use it to confirm who you are." },
-    { impact: "high", owner: "bayclusterlab", title: "Add Organization / LocalBusiness schema", detail: "We'll add JSON-LD with your legal name, logo, sameAs profiles, contact details, address and areas served." },
+    { impact: "high", owner: "seowavetech", title: "Add Organization / LocalBusiness schema", detail: "We'll add JSON-LD with your legal name, logo, sameAs profiles, contact details, address and areas served." },
   );
   const anyLd = pages.filter((p) => p.jsonLdTypes.length).length;
   add(
     { id: "schema-coverage", title: "Structured data on key pages", area: "schema", status: anyLd / Math.max(1, pages.length) > 0.6 ? "pass" : anyLd ? "warn" : "fail", detail: `${anyLd} of ${pages.length} pages carry JSON-LD. Types seen: ${[...allTypes].slice(0, 8).join(", ") || "none"}.` },
-    { impact: "medium", owner: "bayclusterlab", title: "Add structured data to service, article and product pages", detail: "Mark up services (Service), articles (Article with author + dates), products (Product + reviews) and FAQs (FAQPage)." },
+    { impact: "medium", owner: "seowavetech", title: "Add structured data to service, article and product pages", detail: "Mark up services (Service), articles (Article with author + dates), products (Product + reviews) and FAQs (FAQPage)." },
   );
   const faqPages = pages.filter((p) => p.questionHeadings >= 2);
   const faqWithSchema = faqPages.filter((p) => p.jsonLdTypes.includes("FAQPage"));
   if (faqPages.length)
     add(
       { id: "faq-schema", title: "Q&A content is marked up", area: "schema", status: faqWithSchema.length === faqPages.length ? "pass" : "warn", detail: `${faqPages.length} pages use question headings; ${faqWithSchema.length} have FAQPage schema.` },
-      { impact: "medium", owner: "bayclusterlab", title: "Add FAQPage schema to Q&A sections", detail: list(faqPages.filter((p) => !p.jsonLdTypes.includes("FAQPage")).map((p) => p.url)) },
+      { impact: "medium", owner: "seowavetech", title: "Add FAQPage schema to Q&A sections", detail: list(faqPages.filter((p) => !p.jsonLdTypes.includes("FAQPage")).map((p) => p.url)) },
     );
 
   /* ── Content ── */
   const thin = pages.filter((p) => p.wordCount < 300);
   add(
     { id: "thin", title: "Pages have enough substance", area: "content", status: thin.length > pages.length / 2 ? "fail" : thin.length > pages.length / 4 ? "warn" : "pass", detail: `${thin.length} of ${pages.length} pages have under 300 words.` },
-    { impact: "medium", owner: "bayclusterlab", title: "Expand thin pages into full answers", detail: `AI engines quote pages that fully answer a question. Expand:\n${list(thin.map((p) => `${p.url} (${p.wordCount} words)`))}` },
+    { impact: "medium", owner: "seowavetech", title: "Expand thin pages into full answers", detail: `AI engines quote pages that fully answer a question. Expand:\n${list(thin.map((p) => `${p.url} (${p.wordCount} words)`))}` },
   );
   const qa = pages.filter((p) => p.questionHeadings > 0).length;
   add(
     { id: "answer-format", title: "Content is written as answers", area: "content", status: qa / Math.max(1, pages.length) > 0.3 ? "pass" : qa ? "warn" : "fail", detail: `${qa} of ${pages.length} pages use question-style headings that match how buyers ask AI.` },
-    { impact: "high", owner: "bayclusterlab", title: "Restructure key pages around buyer questions", detail: "Lead each section with the question buyers ask, answer it in the first two sentences, then add detail, comparisons and proof." },
+    { impact: "high", owner: "seowavetech", title: "Restructure key pages around buyer questions", detail: "Lead each section with the question buyers ask, answer it in the first two sentences, then add detail, comparisons and proof." },
   );
   const structured = pages.filter((p) => p.hasTable || p.hasList).length;
   add(
     { id: "extractable", title: "Lists and tables AI can quote", area: "content", status: structured / Math.max(1, pages.length) > 0.4 ? "pass" : "warn", detail: `${structured} of ${pages.length} pages use lists or tables.` },
-    { impact: "low", owner: "bayclusterlab", title: "Add comparison tables and step lists", detail: "AI answers often lift lists and tables directly. Add them to service, pricing and comparison pages." },
+    { impact: "low", owner: "seowavetech", title: "Add comparison tables and step lists", detail: "AI answers often lift lists and tables directly. Add them to service, pricing and comparison pages." },
   );
   const dated = pages.filter((p) => p.hasDate).length;
   const authored = pages.filter((p) => p.hasAuthor).length;
   add(
     { id: "eeat", title: "Authors and dates shown", area: "content", status: dated && authored ? "pass" : dated || authored ? "warn" : "fail", detail: `${authored} pages show an author, ${dated} show a published or updated date.` },
-    { impact: "medium", owner: "bayclusterlab", title: "Show authors, credentials and updated dates", detail: "Add author bios with credentials and visible “last updated” dates to articles and guides. It signals freshness and expertise." },
+    { impact: "medium", owner: "seowavetech", title: "Show authors, credentials and updated dates", detail: "Add author bios with credentials and visible “last updated” dates to articles and guides. It signals freshness and expertise." },
   );
   if (home)
     add(
       { id: "og", title: "Social preview tags", area: "technical", status: home.hasOg ? "pass" : "warn", detail: home.hasOg ? "Open Graph tags present." : "No Open Graph tags on the homepage." },
-      { impact: "low", owner: "bayclusterlab", title: "Add Open Graph tags", detail: "Add og:title, og:description and og:image so shared links and AI previews show your brand." },
+      { impact: "low", owner: "seowavetech", title: "Add Open Graph tags", detail: "Add og:title, og:description and og:image so shared links and AI previews show your brand." },
     );
 
   return finish(checks, fixes, aiBots);

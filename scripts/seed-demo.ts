@@ -1,7 +1,7 @@
 /**
  * Fill a demo workspace with 45 days of synthetic data so the dashboard can be reviewed
  * without API keys. Everything it creates is named "Demo" and can be removed with --clean.
- *   npm run seed:demo                 → creates demo@bayclusterlab.com / demo-password
+ *   npm run seed:demo                 → creates demo@seowavetech.com / demo-password
  *   npm run seed:demo -- --clean      → deletes the demo workspace
  */
 import mongoose from "mongoose";
@@ -14,7 +14,7 @@ import type { ActivityDoc, ContentDoc, ContentStatus } from "@/lib/types";
 import { runChecks } from "@/lib/audit/rules";
 import { daysAgo, monthKey } from "@/lib/utils";
 
-const DEMO_EMAIL = "demo@bayclusterlab.com";
+const DEMO_EMAIL = "demo@seowavetech.com";
 await db();
 
 const existing = await Client.findOne({ name: "Demo: Northside Physio" });
@@ -144,7 +144,7 @@ const a = await Audit.create({ clientId: cid, url: client.website, score: audit.
 await Fix.insertMany(audit.fixes.map((f, i) => ({ clientId: cid, auditId: a._id, ...f, page: f.page ?? "", status: i % 4 === 1 ? "in_progress" : "open" })));
 await Fix.insertMany([
   { clientId: cid, key: "demo-ai-bots", title: "Unblock AI assistant crawlers in robots.txt", detail: "GPTBot and PerplexityBot were blocked.", area: "ai-access", impact: "high", owner: "client", status: "done", doneAt: new Date(Date.now() - 40 * 86_400_000) },
-  { clientId: cid, key: "demo-schema", title: "Add Organization / LocalBusiness schema", detail: "Added MedicalBusiness JSON-LD.", area: "schema", impact: "high", owner: "bayclusterlab", status: "done", doneAt: new Date(Date.now() - 35 * 86_400_000) },
+  { clientId: cid, key: "demo-schema", title: "Add Organization / LocalBusiness schema", detail: "Added MedicalBusiness JSON-LD.", area: "schema", impact: "high", owner: "seowavetech", status: "done", doneAt: new Date(Date.now() - 35 * 86_400_000) },
 ]);
 
 const body = `# How Long Does ACL Rehab Take Before You Can Play Again?

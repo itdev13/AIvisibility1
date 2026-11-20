@@ -21,7 +21,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <>
       <h1 className="display text-[40px] text-ink-950">Welcome back</h1>
-      <p className="mb-8 mt-1.5 text-[14px] text-ink-500">Sign in to your BayClusterLab dashboard.</p>
+      <p className="mb-8 mt-1.5 text-[14px] text-ink-500">Sign in to your SeoWaveTech dashboard.</p>
       {error && ERRORS[error] && <Notice tone="bad" className="mb-5">{ERRORS[error]}</Notice>}
       {googleAvailable() && (
         <>
@@ -32,7 +32,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <LoginForm next={next} />
       {SHOW_LOGIN && (
         <p className="mt-6 text-center text-[13.5px] text-ink-500">
-          New to BayClusterLab?{" "}
+          New to SeoWaveTech?{" "}
           <Link href="/signup" className="font-medium text-ink-950 underline underline-offset-2">
             Create an account
           </Link>

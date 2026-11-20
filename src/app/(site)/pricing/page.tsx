@@ -9,13 +9,13 @@ import { ENGINE_META } from "@/lib/engines/types";
 
 export const metadata: Metadata = {
   title: "Pricing — AI SEO plans from $499/month",
-  description: "BayClusterLab plans: Starter $499, Growth $999, Scale $2,499 a month. Daily AI answer tracking, answer-first content and site fixes. No setup fee, cancel any time.",
+  description: "SeoWaveTech plans: Starter $499, Growth $999, Scale $2,499 a month. Daily AI answer tracking, answer-first content and site fixes. No setup fee, cancel any time.",
   alternates: { canonical: "/pricing" },
-  openGraph: { url: "/pricing", title: "BayClusterLab pricing", description: "Done-for-you AI SEO from $499/month. No setup fee, cancel any time." },
+  openGraph: { url: "/pricing", title: "SeoWaveTech pricing", description: "Done-for-you AI SEO from $499/month. No setup fee, cancel any time." },
 };
 
 const PRICING_FAQ: [string, string][] = [
-  ["How much does AI SEO cost?", "Agencies that do AI SEO typically charge $3,000–$8,000 or more a month. Tracking tools cost $30–$500 a month but leave the work to you. BayClusterLab is $499, $999 or $2,499 a month depending on how many buyer questions we track, how many AI engines we check and how much content we produce, and we do the work."],
+  ["How much does AI SEO cost?", "Agencies that do AI SEO typically charge $3,000–$8,000 or more a month. Tracking tools cost $30–$500 a month but leave the work to you. SeoWaveTech is $499, $999 or $2,499 a month depending on how many buyer questions we track, how many AI engines we check and how much content we produce, and we do the work."],
   ["What's included in every plan?", "Every plan tracks your buyer questions daily on Claude, ChatGPT, Gemini and Perplexity, includes a full AI-readiness audit of your site, articles written and edited for you every month, competitor tracking and a live dashboard."],
   ["Which plan should I start with?", "Most businesses start on Growth. It adds Google, AI Overviews and AI Mode, money pages that win comparison questions, and monthly fixes we ship for you. Starter suits businesses that want tracking and content first. Scale adds off-site work: listings, reviews, Reddit and Quora, and publisher pitches."],
   ["Is there a contract or setup fee?", "No. Plans are billed monthly with no setup fee, and you can cancel any time from your billing settings."],

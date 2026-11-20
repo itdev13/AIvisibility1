@@ -179,7 +179,7 @@ const FixSchema = S(
     area: { type: String, enum: ["ai-access", "technical", "schema", "content", "offsite"], default: "technical" },
     impact: { type: String, enum: ["high", "medium", "low"], default: "medium" },
     page: { type: String, default: "" },
-    owner: { type: String, enum: ["bayclusterlab", "client"], default: "bayclusterlab" },
+    owner: { type: String, enum: ["seowavetech", "client"], default: "seowavetech" },
     status: { type: String, enum: ["open", "in_progress", "done", "wont_fix"], default: "open" },
     doneAt: Date,
   },

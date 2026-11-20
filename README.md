@@ -1,6 +1,6 @@
-# BayClusterLab
+# SeoWaveTech
 
-Done-for-you AI SEO. BayClusterLab gets a business named when buyers ask ChatGPT, Gemini, Perplexity, Google AI Overviews and others. It tracks buyer questions every day, audits the site, drafts content for human review, finds off-site opportunities, and shows all of it on a client dashboard.
+Done-for-you AI SEO. SeoWaveTech gets a business named when buyers ask ChatGPT, Gemini, Perplexity, Google AI Overviews and others. It tracks buyer questions every day, audits the site, drafts content for human review, finds off-site opportunities, and shows all of it on a client dashboard.
 
 ## What's in the box
 
@@ -23,12 +23,12 @@ Stack: Next.js 15 (App Router, server actions), TypeScript, Tailwind, MongoDB (M
 ```bash
 cp .env.example .env            # fill in what you have; everything optional degrades gracefully
 npm install
-npm run seed:admin -- you@bayclusterlab.com "a-strong-password" "Your Name"   # email must also be in ADMIN_EMAILS
+npm run seed:admin -- you@seowavetech.com "a-strong-password" "Your Name"   # email must also be in ADMIN_EMAILS
 npm run seed:demo               # optional: demo workspace with 45 days of synthetic data
 npm run dev                     # web on :3000 + worker
 ```
 
-- Demo client login: `demo@bayclusterlab.com` / `demo-password`. Remove it with `npm run seed:demo -- --clean`.
+- Demo client login: `demo@seowavetech.com` / `demo-password`. Remove it with `npm run seed:demo -- --clean`.
 - Without Stripe keys, choosing a plan activates it immediately (development mode).
 - Without engine keys, the dashboard works but tracking and the free check fail with a clear error.
 - `/api/health` lists which engines are live.

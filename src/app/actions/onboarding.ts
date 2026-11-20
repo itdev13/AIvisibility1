@@ -89,6 +89,6 @@ export async function completeOnboarding(_: FormState, fd: FormData): Promise<Fo
 
   await logActivity(client._id, "account", `Workspace created on the ${getPlan(client.plan)!.name} plan.`);
   await enqueue("client.bootstrap", { clientId: String(client._id) }, { dedupeKey: `bootstrap:${client._id}` });
-  await sendEmail(user.email, "Your BayClusterLab workspace is being set up", emails.welcome(user.name || client.name, `${env.appUrl()}/app`));
+  await sendEmail(user.email, "Your SeoWaveTech workspace is being set up", emails.welcome(user.name || client.name, `${env.appUrl()}/app`));
   redirect("/app?welcome=1");
 }

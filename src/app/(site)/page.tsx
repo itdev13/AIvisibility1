@@ -10,7 +10,7 @@ import { SHOW_PRICING, faqSchema, serviceSchema } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Get your small business recommended by AI",
   description:
-    "Your customers now ask ChatGPT, Claude, Gemini and Google's AI who to hire. BayClusterLab finds out what AI says about your business, then does all the work to get you recommended. Free check, no jargon.",
+    "Your customers now ask ChatGPT, Claude, Gemini and Google's AI who to hire. SeoWaveTech finds out what AI says about your business, then does all the work to get you recommended. Free check, no jargon.",
   alternates: { canonical: "/" },
 };
 

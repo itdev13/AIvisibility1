@@ -67,7 +67,7 @@ export async function createClient(_: FormState, fd: FormData): Promise<FormStat
   if (contactEmail) {
     const temp = randomBytes(6).toString("base64url");
     await User.create({ email: contactEmail, name: contactName, passwordHash: await hashPassword(temp), role: "client", clientId: client._id });
-    await sendEmail(contactEmail, "Your BayClusterLab dashboard is ready", emails.invite(contactName || client.name, `${env.appUrl()}/login`, temp));
+    await sendEmail(contactEmail, "Your SeoWaveTech dashboard is ready", emails.invite(contactName || client.name, `${env.appUrl()}/login`, temp));
   }
   await logActivity(client._id, "account", `Workspace created on the ${plan.name} plan.`);
   await enqueue("client.bootstrap", { clientId: String(client._id) }, { dedupeKey: `bootstrap:${client._id}` });

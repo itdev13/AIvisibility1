@@ -224,7 +224,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
             </h2>
             <p className="mt-3 max-w-lg text-[14.5px] leading-relaxed text-white/60">
               {SHOW_PRICING
-              ? "BayClusterLab tracks these questions every day, ships the fixes above, and publishes content that gets you named. Your dashboard is live within the hour."
+              ? "SeoWaveTech tracks these questions every day, ships the fixes above, and publishes content that gets you named. Your dashboard is live within the hour."
               : "We check these questions every day, fix the problems above and write the pages that get you named. You run your business; we handle AI."}
             </p>
           </div>

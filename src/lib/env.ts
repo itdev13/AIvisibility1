@@ -3,7 +3,7 @@ const v = (k: string, fallback = "") => (process.env[k] ?? fallback).trim();
 
 export const env = {
   appUrl: () => v("APP_URL", "http://localhost:3000").replace(/\/$/, ""),
-  mongoUri: () => v("MONGODB_URI", "mongodb://127.0.0.1:27017/bayclusterlab"),
+  mongoUri: () => v("MONGODB_URI", "mongodb://127.0.0.1:27017/seowavetech"),
   authSecret: () => {
     const s = v("AUTH_SECRET");
     if (!s && process.env.NODE_ENV === "production") throw new Error("AUTH_SECRET is required in production");
@@ -47,5 +47,5 @@ export const env = {
   googleClientSecret: () => v("GOOGLE_CLIENT_SECRET"),
 
   resendKey: () => v("RESEND_API_KEY"),
-  emailFrom: () => v("EMAIL_FROM", "BayClusterLab <hello@bayclusterlab.com>"),
+  emailFrom: () => v("EMAIL_FROM", "SeoWaveTech <hello@seowavetech.com>"),
 };
